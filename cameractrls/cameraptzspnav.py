@@ -97,7 +97,7 @@ def usage():
     print(f'example:')
     print(f'  {sys.argv[0]} -d /dev/video4')
 
-def main():
+def run():
     try:
         arguments, values = getopt.getopt(sys.argv[1:], 'hlc:d:', ['help', 'list', 'controller', 'device'])
     except getopt.error as err:
@@ -120,7 +120,7 @@ def main():
     if spnav_open() == -1:
         logging.error(f'spnav_open failed')
         sys.exit(1)
-    
+
     if list_ctrls:
         # only one device is supported by the libspnav
         name = ctypes.create_string_buffer(64)
@@ -170,7 +170,7 @@ def main():
             logging.warning(f'spnav_poll_event failed')
             continue
 
-        if event.type == SPNAV_EVENT_MOTION:            
+        if event.type == SPNAV_EVENT_MOTION:
             check_step(ptz.do_zoom_step, event.motion.z)
             check_step(ptz.do_pan_step, event.motion.x)
             check_step(ptz.do_tilt_step, event.motion.y)
@@ -182,5 +182,9 @@ def main():
 
     spnav_close()
 
+def main():
+    sys.exit(run())
+
+
 if __name__ == '__main__':
-    sys.exit(main())
+    main()

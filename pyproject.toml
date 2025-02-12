@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cameractrls"
+version = "0.6.7"
+authors = [
+    {name = "Gergo Koteles", email = "soyer@irl.hu"}
+]
+license = {text = "LGPLv3+"}
+description = "Run Linux cloud image on top of VirtualBox using commandline tool"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["vboxmanage", "virtualbox", "vm", "virtual machine", "automation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "Topic :: Desktop Environment",
+    "Topic :: Multimedia :: Graphics :: Capture :: Digital Camera",
+    "Topic :: Terminals",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only"
+]
+dependencies = [
+    "pygobject>=3.46"
+]
+
+[project.urls]
+Homepage = "https://github.com/soyersoyer/cameractrls"
+
+[project.scripts]                                                              
+cameractrls = "cameractrls.cameractrls:main"  
+cameractrlsgtk = "cameractrls.cameractrlsgtk:main"  
+cameractrlsgtk4 = "cameractrls.cameractrlsgtk4:main"  
+cameractrlsd = "cameractrls.cameractrlsd:main"  
+cameraptzgame = "cameractrls.cameraptzgame:main"  
+cameraptzmidi = "cameractrls.cameraptzmidi:main"  
+cameraptzspnav = "cameractrls.cameraptzspnav:main"  
+cameraview = "cameractrls.cameraview:main"  
+
+[tool.setuptools]
+packages = ["cameractrls"]
+
+[tool.distutils.bdist_wheel]
+universal = true

@@ -29,7 +29,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, type_hint=Gdk.WindowTypeHint.DIALOG, **kwargs)
         self.devices = []
-        
+
         self.fd = 0
         self.device = None
         self.camera = None
@@ -53,7 +53,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
         css_provider = Gtk.CssProvider()
         css_provider.load_from_data(b'''
         .white-balance-temperature trough {
-            background-image: linear-gradient(to right, 
+            background-image: linear-gradient(to right,
                 #89F3FF, #AFF7FF, #DDFCFF, #FFF2AA, #FFDD27, #FFC500, #FFB000, #FF8D00, #FF7A00
             );
         }
@@ -61,7 +61,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
             background-blend-mode: color;
         }
         .dark-to-light trough {
-            background-image: linear-gradient(to right, 
+            background-image: linear-gradient(to right,
                 #888888, #dddddd
             );
         }
@@ -189,7 +189,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
     def refresh_devices(self):
         logging.info('refresh_devices')
         self.devices = get_devices(v4ldirs)
-        
+
         if len(self.devices) == 0:
             self.close_device()
             self.init_gui_device()
@@ -259,7 +259,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
 
     def close_device(self):
         if self.fd:
-            logging.info('close_device')    
+            logging.info('close_device')
             self.device = None
             self.camera = None
             self.listener.stop()
@@ -307,7 +307,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
                     c_label = Gtk.Label(xalign=0, margin_bottom=10, margin_top=10)
                     c_label.set_markup(f'<b>{cat.title}</b>')
                     page_box.pack_start(c_label, False, False, 0)
-                
+
                 ctrls_frame = Gtk.Frame()
                 page_box.pack_start(ctrls_frame, False, False, 0)
 
@@ -557,7 +557,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
         pan_upper =self.pan_speed_sc.get_adjustment().get_upper()
         tilt_lower = self.tilt_speed_sc.get_adjustment().get_lower()
         tilt_upper = self.tilt_speed_sc.get_adjustment().get_upper()
-    
+
         if keyval in [Gdk.KEY_Left, Gdk.KEY_KP_Left, Gdk.KEY_a]:
             self.pan_speed_sc.set_value(pan_lower)
         elif keyval in [Gdk.KEY_Right, Gdk.KEY_KP_Right, Gdk.KEY_d]:
@@ -591,7 +591,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
         pan_step = self.pan_absolute_sc.get_adjustment().get_step_increment()
         tilt_value = self.tilt_absolute_sc.get_value()
         tilt_step = self.tilt_absolute_sc.get_adjustment().get_step_increment()
-    
+
         if keyval in [Gdk.KEY_Left, Gdk.KEY_KP_Left, Gdk.KEY_a]:
             self.pan_absolute_sc.set_value(pan_value - pan_step)
         elif keyval in [Gdk.KEY_Right, Gdk.KEY_KP_Right, Gdk.KEY_d]:
@@ -750,7 +750,11 @@ class CameraCtrlsApp(Gtk.Application):
             proc.kill()
 
 
-if __name__ == '__main__':
+def main():
     app = CameraCtrlsApp()
     app.run()
     app.kill_child_processes()
+
+
+if __name__ == '__main__':
+    main()

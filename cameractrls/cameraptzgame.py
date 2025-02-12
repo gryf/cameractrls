@@ -177,7 +177,7 @@ def check_button(controller, button, cb, rumble=rumble_simple):
     if cb([]):
         rumble(controller)
 
-def main():
+def run():
     try:
         arguments, values = getopt.getopt(sys.argv[1:], 'hlc:d:', ['help', 'list', 'controller', 'device'])
     except getopt.error as err:
@@ -297,5 +297,9 @@ def main():
 
     SDL_GameControllerClose(controller)
 
+def main():
+    sys.exit(run())
+
+
 if __name__ == '__main__':
-    sys.exit(main())
+    main()

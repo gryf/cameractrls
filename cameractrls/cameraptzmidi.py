@@ -324,7 +324,7 @@ def process_midi(seq, ptz, loop):
 
     elif ev.type == SND_SEQ_EVENT_PGMCHANGE:
         ptz.do_preset(ev.data.control.value + 1, [])
-    
+
     elif ev.type == SND_SEQ_EVENT_PORT_UNSUBSCRIBED:
         logging.error(f'midi port unsubscribed')
         sys.exit(1)
@@ -340,7 +340,7 @@ def usage():
     print(f'example:')
     print(f'  {sys.argv[0]} -d /dev/video4')
 
-def main():
+def run():
     try:
         arguments, values = getopt.getopt(sys.argv[1:], 'hlc:d:', ['help', 'list', 'controller', 'device'])
     except getopt.error as err:
@@ -397,7 +397,7 @@ def main():
             logging.error(f'invalid controller id: {controller_id}')
             sys.exit(2)
         client, port = int(spl[-2]), int(spl[-1])
-    
+
     logging.info(f'using port: {client}:{port}')
 
     snd_seq_set_client_event_filter(seq, SND_SEQ_EVENT_CONTROLLER)
@@ -438,5 +438,10 @@ def main():
     finally:
         loop.close()
 
+
+def main():
+    sys.exit(run())
+
+
 if __name__ == '__main__':
-    sys.exit(main())
+    main()

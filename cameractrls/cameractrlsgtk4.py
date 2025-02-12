@@ -14,7 +14,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.devices = []
-        
+
         self.fd = 0
         self.device = None
         self.camera = None
@@ -38,7 +38,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
         css_provider = Gtk.CssProvider()
         css = '''
         .white-balance-temperature trough {
-            background-image: linear-gradient(to right, 
+            background-image: linear-gradient(to right,
                 #89F3FF, #AFF7FF, #DDFCFF, #FFF2AA, #FFDD27, #FFC500, #FFB000, #FF8D00, #FF7A00
             );
         }
@@ -46,7 +46,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
             background-blend-mode: color;
         }
         .dark-to-light trough {
-            background-image: linear-gradient(to right, 
+            background-image: linear-gradient(to right,
                 #888888, #dddddd
             );
         }
@@ -261,7 +261,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
 
     def close_device(self):
         if self.fd:
-            logging.info('close_device')    
+            logging.info('close_device')
             self.device = None
             self.camera = None
             self.listener.stop()
@@ -310,7 +310,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
                     c_label = Gtk.Label(xalign=0, margin_bottom=10, margin_top=10)
                     c_label.set_markup(f'<b>{cat.title}</b>')
                     page_box.append(c_label)
-                
+
                 ctrls_frame = Gtk.Frame()
                 page_box.append(ctrls_frame)
 
@@ -595,7 +595,7 @@ class CameraCtrlsWindow(Gtk.ApplicationWindow):
         pan_step = self.pan_absolute_sc.get_adjustment().get_step_increment()
         tilt_value = self.tilt_absolute_sc.get_value()
         tilt_step = self.tilt_absolute_sc.get_adjustment().get_step_increment()
-    
+
         if keyval in [Gdk.KEY_Left, Gdk.KEY_KP_Left, Gdk.KEY_a]:
             self.pan_absolute_sc.set_value(pan_value - pan_step)
         elif keyval in [Gdk.KEY_Right, Gdk.KEY_KP_Right, Gdk.KEY_d]:
@@ -750,8 +750,11 @@ class CameraCtrlsApp(Gtk.Application):
         for proc in self.child_processes:
             proc.kill()
 
-
-if __name__ == '__main__':
+def main():
     app = CameraCtrlsApp()
     app.run()
     app.kill_child_processes()
+
+
+if __name__ == '__main__':
+    main()

@@ -530,11 +530,11 @@ class V4L2Camera(Thread):
         if not (cap.capabilities & V4L2_CAP_STREAMING):
             logging.error(f'{self.device} does not support streaming i/o')
             sys.exit(3)
-    
+
         fmt = v4l2_format()
         fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE
         ioctl(self.fd, VIDIOC_G_FMT, fmt)
-    
+
         parm = v4l2_streamparm()
         parm.type = V4L2_BUF_TYPE_VIDEO_CAPTURE
 
@@ -645,7 +645,7 @@ class V4L2Camera(Thread):
     # thread start
     def run(self):
         self.capture_loop()
-    
+
     # thread stop
     def stop(self):
         self.stop_capturing()
@@ -933,7 +933,7 @@ class SDLCameraWindow():
             if SDL_RenderSetLogicalSize(self.renderer, self.cam.height, self.cam.width) != 0:
                 logging.warning(f'SDL_RenderSetlogicalSize failed: {SDL_GetError()}')
         self.match_window_to_logical()
-    
+
     def match_window_to_logical(self):
         if self.fullscreen:
             return
@@ -950,7 +950,7 @@ class SDLCameraWindow():
             return
         if logical_w.value > logical_h.value and win_w.value > win_h.value:
             return
-        
+
         SDL_SetWindowSize(self.window, win_h, win_w)
 
     def mirror(self, flip):
@@ -962,7 +962,7 @@ class SDLCameraWindow():
             logging.warning(f'set_colormap: invalid colormap name ({colormap}) not in {list(SDL_PALS.keys())}')
             colormap = 'none'
 
-        pal = self.colormaps.get(colormap)    
+        pal = self.colormaps.get(colormap)
 
         self.colormap = colormap
         SDL_SetPaletteColors(self.surface[0].format[0].palette, pal, 0, 256)

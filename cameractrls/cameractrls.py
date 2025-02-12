@@ -88,7 +88,7 @@ class PTZHWControllers():
         self.toggle_cb = toggle_cb
         self.notify_err = notify_err
         self.notify_end = notify_end
-    
+
     def get_names(self):
         return [c.id for c in self.controllers]
 
@@ -132,11 +132,11 @@ class PTZHWController():
         self.command = command
         self.id = id
         self.process = None
-    
+
     def run(self, video_device):
         self.process = subprocess.Popen([self.command, '-c', self.id, '-d', video_device], stderr=subprocess.PIPE)
         return self.process
-    
+
     def is_running(self):
         return self.process and self.process.poll() is None
 
@@ -1514,7 +1514,7 @@ class LogitechCtrls:
                             BaseCtrlMenu('save_5', 'Save 5', LOGITECH_PERIPHERAL_PANTILT_PRESET_SAVE_5, gui_hidden=True),
                             BaseCtrlMenu('save_6', 'Save 6', LOGITECH_PERIPHERAL_PANTILT_PRESET_SAVE_6, gui_hidden=True),
                             BaseCtrlMenu('save_7', 'Save 7', LOGITECH_PERIPHERAL_PANTILT_PRESET_SAVE_7, gui_hidden=True),
-                            BaseCtrlMenu('save_8', 'Save 8', LOGITECH_PERIPHERAL_PANTILT_PRESET_SAVE_8, gui_hidden=True),                            
+                            BaseCtrlMenu('save_8', 'Save 8', LOGITECH_PERIPHERAL_PANTILT_PRESET_SAVE_8, gui_hidden=True),
                         ],
                         child_tooltip='Click to load, long press to save',
                     ),
@@ -1905,7 +1905,7 @@ class V4L2Ctrls:
                 if qctrl.id in V4L2_CTRL_ZEROERS:
                     v4l2ctrl.zeroer = True
                     v4l2ctrl.default = 0
-                
+
                 if v4l2ctrl.step:
                     v4l2ctrl.step_big = v4l2ctrl.step * 20
 
@@ -1975,9 +1975,9 @@ class V4L2Listener(Thread):
         self.fmt_ctrls = fmt_ctrls
         self.cb = cb
         self.err_cb = err_cb
-        self.epoll = select.epoll() 
+        self.epoll = select.epoll()
         self.epoll.register(self.fd, select.POLLPRI | select.POLLERR | select.POLLNVAL)
-    
+
         sub = v4l2_event_subscription()
         sub.type = V4L2_EVENT_CTRL
         sub.flags = V4L2_EVENT_SUB_FL_ALLOW_FEEDBACK
@@ -2133,7 +2133,7 @@ class V4L2FmtCtrls:
 
         if pixelformat == pxf2str(fmt.fmt.pix.pixelformat):
             return
-        
+
         fmt.fmt.pix.pixelformat = str2pxf(pixelformat)
 
         try:
@@ -2182,7 +2182,7 @@ class V4L2FmtCtrls:
         except Exception as e:
             logging.warning(f'V4L2FmtCtrls: Can\'t get fmt {e}')
             return None
-        
+
         return fmt
 
     def get_fps(self):
@@ -2559,7 +2559,7 @@ class ConfigPreset:
         if preset not in config:
             collect_warning(f'ConfigPreset: {preset} not found in {filename}', errs)
             return
-        
+
         for ctrl in config[preset]:
             self.cam_ctrls.setup_ctrls({ctrl: config[preset][ctrl]}, errs)
 

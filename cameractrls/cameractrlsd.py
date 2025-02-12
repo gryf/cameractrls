@@ -114,7 +114,8 @@ def parse_events(data):
         events.append(Event(wd, mask, cookie, namesize, name.decode()))
     return events
 
-def main():
+
+def run():
     try:
         arguments, values = getopt.getopt(sys.argv[1:], 'h', ['help'])
     except getopt.error as err:
@@ -157,5 +158,10 @@ def main():
                     continue
                 preset_device(path.path)
 
+
+def main():
+    sys.exit(run())
+
+
 if __name__ == '__main__':
-    sys.exit(main())
+    main()
